@@ -8,6 +8,7 @@ const playerX = ref<Player | null>(null);
 const playerO = ref<Player | null>(null);
 const isPlayerX = ref(true);
 const buttonText = ref("Spara");
+const currentPlayerIndex = ref<number | null>(null);
 
 const handleSubmit = () => {
     if (isPlayerX.value) {
@@ -15,6 +16,7 @@ const handleSubmit = () => {
         playerX.value = new Player(playerText.value, 'X');
         console.log(`Spelare X sparad: ${playerX.value.name}`);
         playerText.value = "";
+        buttonText.value = "Börja spela";
         isPlayerX.value = false;  // Växlar till spelare O
     } else {
         // Skapar en ny spelare O
@@ -22,11 +24,9 @@ const handleSubmit = () => {
         console.log(`Spelare O sparad: ${playerO.value.name}`);
         playerText.value = "";
 
-        buttonText.value = "Börja spela";
-
         // Väljer slumpmässigt vilken spelare som ska börja
-        //currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1;
-        //console.log(`Spelare ${currentPlayerIndex.value === 0 ? 'X' : 'O'} börjar spela`);
+        currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1;
+        console.log(`Spelare ${currentPlayerIndex.value === 0 ? 'X' : 'O'} börjar spela`);
     }
 }
 
@@ -36,7 +36,7 @@ const handleSubmit = () => {
 <form @submit.prevent="handleSubmit">
     <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
     <input type="text" v-model="playerText" />
-    <button @click="handleSubmit"> {{ buttonText }}</button>
+    <button type="submit"> {{ buttonText }}</button>
 </form>
 
 

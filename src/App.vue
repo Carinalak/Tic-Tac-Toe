@@ -3,8 +3,6 @@
 import AddPlayer from "./components/AddPlayer.vue";
 
 
-
-
 </script>
 <template>
 
