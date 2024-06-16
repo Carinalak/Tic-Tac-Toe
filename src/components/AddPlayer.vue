@@ -2,51 +2,61 @@
 import { ref } from 'vue';
 import { Player } from './models/Player';
 
-
 const playerText = ref("");
 const playerX = ref<Player | null>(null);
 const playerO = ref<Player | null>(null);
 const isPlayerX = ref(true);
 const buttonText = ref("Spara");
 const currentPlayerIndex = ref<number | null>(null);
+const gameStarted = ref(false);
 
 const handleSubmit = () => {
     if (isPlayerX.value) {
-        // Skapar en ny spelare X
         playerX.value = new Player(playerText.value, 'X');
         console.log(`Spelare X sparad: ${playerX.value.name}`);
         playerText.value = "";
         buttonText.value = "Börja spela";
-        isPlayerX.value = false;  // Växlar till spelare O
+        isPlayerX.value = false; 
     } else {
-        // Skapar en ny spelare O
         playerO.value = new Player(playerText.value, 'O');
         console.log(`Spelare O sparad: ${playerO.value.name}`);
         playerText.value = "";
+        startGame();
+    }  
+};
 
-        // Väljer slumpmässigt vilken spelare som ska börja
-        currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1;
-        console.log(`Spelare ${currentPlayerIndex.value === 0 ? 'X' : 'O'} börjar spela`);
-    }
+
+const startGame = () => {
+    currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1;
+    gameStarted.value = true;
+    console.log(`Spelet har startat. Spelare ${currentPlayerIndex.value === 0 ? 'X' : 'O'} börjar spela`);
 }
 
+const currentPlayer = () => {
+    if (currentPlayerIndex.value !== null) {
+        return currentPlayerIndex.value === 0 ? playerX.value?.name : playerO.value?.name;
+    } else {
+        return '';
+    }
+};
 </script>
 <template>
-
-<form @submit.prevent="handleSubmit">
-    <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
-    <input type="text" v-model="playerText" />
-    <button type="submit"> {{ buttonText }}</button>
-</form>
-
-
-
+<div v-if="!gameStarted">
+    <form @submit.prevent="handleSubmit">
+        <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
+        <input type="text" v-model="playerText" />
+        <button type="submit"> {{ buttonText }}</button>
+    </form>
+</div>
 
 
-
+<div v-else>
+    Det är {{ currentPlayer() }}s tur att spela.
+</div>
 
 
 </template>
 <style scoped>
+
 
 </style>
