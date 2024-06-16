@@ -3,12 +3,13 @@
 import AddPlayer from "./components/AddPlayer.vue";
 import StartGame from "./components/StartGame.vue";
 
+
 </script>
 <template>
 
 <AddPlayer  />
 <StartGame />
-  
+
 
 
   

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Player } from './models/Player';
+import AddGrid from './AddGrid.vue';
 
 const playerText = ref("");
 const playerX = ref<Player | null>(null);
@@ -25,7 +26,6 @@ const handleSubmit = () => {
     }  
 };
 
-
 const startGame = () => {
     currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1;
     gameStarted.value = true;
@@ -49,9 +49,9 @@ const currentPlayer = () => {
     </form>
 </div>
 
-
 <div v-else>
     Det är {{ currentPlayer() }}s tur att spela.
+    <AddGrid :gridSize="9" />
 </div>
 
 
