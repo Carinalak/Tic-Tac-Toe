@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Player } from './models/Player';
-import AddGrid from './AddGrid.vue';
+import StartGame from './StartGame.vue';
+import { onMounted } from 'vue';
+
 
 const playerText = ref("");
 const playerX = ref<Player | null>(null);
@@ -14,16 +16,42 @@ const gameStarted = ref(false);
 const handleSubmit = () => {
     if (isPlayerX.value) {
         playerX.value = new Player(playerText.value, 'X');
+        localStorage.setItem('playerX', JSON.stringify(playerX.value));
         console.log(`Spelare X sparad: ${playerX.value.name}`);
         playerText.value = "";
         buttonText.value = "Börja spela";
-        isPlayerX.value = false; 
+        isPlayerX.value = false;
     } else {
         playerO.value = new Player(playerText.value, 'O');
+        localStorage.setItem('playerO', JSON.stringify(playerO.value));
         console.log(`Spelare O sparad: ${playerO.value.name}`);
         playerText.value = "";
         startGame();
     }  
+};
+
+onMounted(() => {
+    const savedPlayerX = localStorage.getItem('playerX');
+    if (savedPlayerX) {
+        playerX.value = JSON.parse(savedPlayerX);
+    }
+
+    const savedPlayerO = localStorage.getItem('playerO');
+    if (savedPlayerO) {
+        playerO.value = JSON.parse(savedPlayerO);
+    }
+});
+
+const resetGame = () => {
+    localStorage.removeItem('playerX');
+    localStorage.removeItem('playerO');
+
+    playerX.value = null;
+    playerO.value = null;
+    isPlayerX.value = true;
+    buttonText.value = 'Spara';
+    currentPlayerIndex.value = null;
+    gameStarted.value = false;
 };
 
 const startGame = () => {
@@ -32,28 +60,20 @@ const startGame = () => {
     console.log(`Spelet har startat. Spelare ${currentPlayerIndex.value === 0 ? 'X' : 'O'} börjar spela`);
 }
 
-const currentPlayer = () => {
-    if (currentPlayerIndex.value !== null) {
-        return currentPlayerIndex.value === 0 ? playerX.value?.name : playerO.value?.name;
-    } else {
-        return '';
-    }
-};
 </script>
 <template>
-<div v-if="!gameStarted">
-    <form @submit.prevent="handleSubmit">
-        <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
-        <input type="text" v-model="playerText" />
-        <button type="submit"> {{ buttonText }}</button>
-    </form>
-</div>
+    <div v-if="!gameStarted">
+        <form @submit.prevent="handleSubmit">
+            <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
+            <input type="text" v-model="playerText" />
+            <button type="submit"> {{ buttonText }}</button>
+        </form>
+    </div>
 
-<div v-else>
-    Det är {{ currentPlayer() }}s tur att spela.
-    <AddGrid :gridSize="9" />
-</div>
-
+    
+    <div v-else>
+        <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex" />
+    </div>
 
 </template>
 <style scoped>

@@ -1,14 +1,13 @@
 <script setup lang="ts">
 
 import AddPlayer from "./components/AddPlayer.vue";
-import StartGame from "./components/StartGame.vue";
 
 
 </script>
 <template>
-
+<h1> Tic Tac Toe</h1>
 <AddPlayer  />
-<StartGame />
+
 
 
 
