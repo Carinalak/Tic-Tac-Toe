@@ -32,13 +32,11 @@ const handleSubmit = () => {
 
 onMounted(() => {
     const savedPlayerX = localStorage.getItem('playerX');
-    if (savedPlayerX) {
-        playerX.value = JSON.parse(savedPlayerX);
-    }
-
     const savedPlayerO = localStorage.getItem('playerO');
-    if (savedPlayerO) {
+    if (savedPlayerX && savedPlayerO) {
+        playerX.value = JSON.parse(savedPlayerX);
         playerO.value = JSON.parse(savedPlayerO);
+        startGame();
     }
 });
 
@@ -62,6 +60,7 @@ const startGame = () => {
 
 </script>
 <template>
+    
     <div v-if="!gameStarted">
         <form @submit.prevent="handleSubmit">
             <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
@@ -73,6 +72,7 @@ const startGame = () => {
     
     <div v-else>
         <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex" />
+        <button @click="resetGame">Återställ spel</button>
     </div>
 
 </template>
