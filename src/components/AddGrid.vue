@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ref, watch } from 'vue';
+import { Player } from './models/Player';
 
 const props = defineProps<{
   currentPlayerSymbol: string;
@@ -21,12 +22,16 @@ const winningCombinations = [
 
 const handleCellClick = (index: number) => {
   if (board.value[index] !== '' || props.gameOver) return;
+  console.log(props.currentPlayerSymbol, "makes the move");
+  
 
   board.value[index] = props.currentPlayerSymbol;
 
   if (checkWinner(props.currentPlayerSymbol)) {
     //gameOver.value = true;
     emit('gameWon', props.currentPlayerSymbol);
+    console.log(props.currentPlayerSymbol, "won, play again?");
+    
   } else {
     emit('playerSwitched');
   }
