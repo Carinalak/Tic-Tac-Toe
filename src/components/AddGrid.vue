@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, watch } from 'vue';
 
 const props = defineProps<{
   currentPlayerSymbol: string;
+  gameOver: boolean;
 }>();
+
 
 const emit = defineEmits(['playerSwitched', 'gameWon']);
 
 const board = ref(Array(9).fill(''));
-const gameOver = ref(false);
+//const gameOver = ref(false);
 
 const winningCombinations = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -18,12 +20,12 @@ const winningCombinations = [
 
 
 const handleCellClick = (index: number) => {
-  if (board.value[index] !== '' || gameOver.value) return;
+  if (board.value[index] !== '' || props.gameOver) return;
 
   board.value[index] = props.currentPlayerSymbol;
 
   if (checkWinner(props.currentPlayerSymbol)) {
-    gameOver.value = true;
+    //gameOver.value = true;
     emit('gameWon', props.currentPlayerSymbol);
   } else {
     emit('playerSwitched');
@@ -35,6 +37,17 @@ const checkWinner = (symbol: string) => {
     return combination.every(index => board.value[index] === symbol);
   });
 };
+
+watch(() => props.gameOver, (newGameOver) => {
+  if (!newGameOver) {
+    resetBoard();
+  }
+});
+
+const resetBoard = () => {
+  board.value = Array(9).fill('');
+};
+
 </script>
 
 <template>
