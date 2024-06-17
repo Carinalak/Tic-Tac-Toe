@@ -1,25 +1,21 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { defineProps, ref } from 'vue';
 
 const props = defineProps<{
   currentPlayerSymbol: string;
 }>();
 
+const emit = defineEmits(['playerSwitched']);
+
 const board = ref(Array(9).fill(''));
-const currentPlayer = ref(props.currentPlayerSymbol);
 
 const handleCellClick = (index: number) => {
   if (board.value[index] !== '') return;
 
-  board.value[index] = currentPlayer.value;
-  
+  board.value[index] = props.currentPlayerSymbol;
 
-  currentPlayer.value = currentPlayer.value === 'X' ? 'O' : 'X';
+  emit('playerSwitched');
 };
-
-watch(() => props.currentPlayerSymbol, (newSymbol) => {
-  currentPlayer.value = newSymbol;
-});
 </script>
 
 <template>

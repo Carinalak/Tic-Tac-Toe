@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref, watch } from 'vue';
+import { defineProps, ref, computed } from 'vue';
 import AddGrid from './AddGrid.vue';
 
 const props = defineProps<{
@@ -9,27 +9,26 @@ const props = defineProps<{
 }>();
 
 const currentPlayerSymbol = ref(props.currentPlayerIndex === 0 ? 'X' : 'O');
-
-watch(() => props.currentPlayerIndex, (newIndex) => {
-  currentPlayerSymbol.value = newIndex === 0 ? 'X' : 'O';
+const currentPlayerName = computed(() => {
+  return currentPlayerSymbol.value === 'X' ? props.playerX?.name : props.playerO?.name;
+});
+const nextPlayerName = computed(() => {
+  return currentPlayerSymbol.value === 'X' ? props.playerO?.name : props.playerX?.name;
 });
 
-const getCurrentPlayer = () => {
-  if (props.currentPlayerIndex === null) return '';
-  return props.currentPlayerIndex === 0 ? props.playerX?.name : props.playerO?.name;
+const switchPlayer = () => {
+  currentPlayerSymbol.value = currentPlayerSymbol.value === 'X' ? 'O' : 'X';
 };
 </script>
 
 <template>
-  <div v-if="playerX && playerO">
-    <p>
-      Spelare X: {{ playerX.name }}, Spelare O: {{ playerO.name }}
-    </p>
+ <div v-if="playerX && playerO">
+    <p>Spelare X: {{ playerX.name }}, Spelare O: {{ playerO.name }}</p>
   </div>
 
   <div>
-    Det är {{ getCurrentPlayer() }}s tur att spela.
-    <AddGrid :currentPlayerSymbol="currentPlayerSymbol" />
+    <p>Det är {{ currentPlayerName }}s tur att spela.</p>
+    <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" />
   </div>
 </template>
 
