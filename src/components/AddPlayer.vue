@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Player } from './models/Player';
 import StartGame from './StartGame.vue';
-import { onMounted } from 'vue';
-
 
 const playerText = ref("");
 const playerX = ref<Player | null>(null);
@@ -43,7 +41,6 @@ onMounted(() => {
 const resetPlayers = () => {
     localStorage.removeItem('playerX');
     localStorage.removeItem('playerO');
-
     playerX.value = null;
     playerO.value = null;
     isPlayerX.value = true;
@@ -51,29 +48,15 @@ const resetPlayers = () => {
     currentPlayerIndex.value = null;
     gameStarted.value = false;
 };
-/*
-const resetGame = () => {
-    localStorage.removeItem('playerX');
-    localStorage.removeItem('playerO');
-
-    playerX.value = null;
-    playerO.value = null;
-    isPlayerX.value = true;
-    buttonText.value = 'Spara';
-    currentPlayerIndex.value = null;
-    gameStarted.value = false;
-};*/
 
 const startGame = () => {
     currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1;
     gameStarted.value = true;
-    
     console.log(`Spelet har startat. Spelare ${currentPlayerIndex.value === 0 ? 'X' : 'O'} börjar spela`);
 }
-
 </script>
+
 <template>
-    
     <div v-if="!gameStarted">
         <form @submit.prevent="handleSubmit">
             <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
@@ -82,14 +65,12 @@ const startGame = () => {
         </form>
     </div>
 
-    
     <div v-else>
         <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex" />
         <button @click="resetPlayers">Logga in på nytt</button>
     </div>
-
 </template>
-<style scoped>
 
+<style scoped>
 
 </style>

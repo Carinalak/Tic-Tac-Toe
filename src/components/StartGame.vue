@@ -1,8 +1,6 @@
 <script setup lang="ts">
-
-import { DefineProps } from 'vue';
+import { defineProps, ref, watch } from 'vue';
 import AddGrid from './AddGrid.vue';
-
 
 const props = defineProps<{
   playerX: { name: string, symbol: string } | null;
@@ -10,33 +8,31 @@ const props = defineProps<{
   currentPlayerIndex: number | null;
 }>();
 
+const currentPlayerSymbol = ref(props.currentPlayerIndex === 0 ? 'X' : 'O');
+
+watch(() => props.currentPlayerIndex, (newIndex) => {
+  currentPlayerSymbol.value = newIndex === 0 ? 'X' : 'O';
+});
 
 const getCurrentPlayer = () => {
   if (props.currentPlayerIndex === null) return '';
   return props.currentPlayerIndex === 0 ? props.playerX?.name : props.playerO?.name;
 };
-
-
 </script>
+
 <template>
-
-
-    <div v-if="playerX || playerO">
-      <p v-if="playerX && playerO">
-        Spelare X: {{ playerX.name }}, Spelare O: {{ playerO.name }}
-      </p>
-    </div>
+  <div v-if="playerX && playerO">
+    <p>
+      Spelare X: {{ playerX.name }}, Spelare O: {{ playerO.name }}
+    </p>
+  </div>
 
   <div>
     Det är {{ getCurrentPlayer() }}s tur att spela.
-    <AddGrid :gridSize="9" />
+    <AddGrid :currentPlayerSymbol="currentPlayerSymbol" />
   </div>
-
-
-
-
-
 </template>
+
 <style scoped>
 
 </style>
