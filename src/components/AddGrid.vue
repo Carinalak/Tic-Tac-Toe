@@ -5,16 +5,35 @@ const props = defineProps<{
   currentPlayerSymbol: string;
 }>();
 
-const emit = defineEmits(['playerSwitched']);
+const emit = defineEmits(['playerSwitched', 'gameWon']);
 
 const board = ref(Array(9).fill(''));
+const gameOver = ref(false);
+
+const winningCombinations = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+  [0, 4, 8], [2, 4, 6]             // diagonals
+];
+
 
 const handleCellClick = (index: number) => {
-  if (board.value[index] !== '') return;
+  if (board.value[index] !== '' || gameOver.value) return;
 
   board.value[index] = props.currentPlayerSymbol;
 
-  emit('playerSwitched');
+  if (checkWinner(props.currentPlayerSymbol)) {
+    gameOver.value = true;
+    emit('gameWon', props.currentPlayerSymbol);
+  } else {
+    emit('playerSwitched');
+  }
+};
+
+const checkWinner = (symbol: string) => {
+  return winningCombinations.some(combination => {
+    return combination.every(index => board.value[index] === symbol);
+  });
 };
 </script>
 
