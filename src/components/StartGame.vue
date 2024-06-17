@@ -19,7 +19,7 @@ const switchPlayer = () => {
 };
 
 const handleGameWon = (symbol: string) => {
-  winner.value = symbol === 'X' ? props.playerX?.name : props.playerO?.name;
+  winner.value = symbol === 'X' ? props.playerX?.name ?? null : props.playerO?.name ?? null;
 };
 
 
