@@ -19,6 +19,8 @@ const getCurrentPlayer = () => {
 
 </script>
 <template>
+
+
     <div v-if="playerX || playerO">
       <p v-if="playerX && playerO">
         Spelare X: {{ playerX.name }}, Spelare O: {{ playerO.name }}

@@ -2,19 +2,14 @@
 import { ref } from 'vue';
 
 const grid = ref(Array.from({ length: 9 }, (_, index) => index));
-/*
-const handleCellClick = (index: number) => {
-  console.log(`Ruta ${index + 1} klickad`);
-  
-};
-*/
-// Initialisera en tom spelplan med 9 celler
+
+
 const board = ref(Array(9).fill(''));
 
-// Spelare X börjar
+//Slumpvis spelares symbol:
 const currentPlayer = ref('X');
-
-// Uppdatera aktuell spelare vid spelstart
+//const currentPlayer = ref<{ name: string, symbol: string } | null>(null);
+//const currentPlayer = ref<{ 'O' : 'X' } | null>();
 /*
 const setCurrentPlayer = () => {
     if (currentPlayerIndex.value !== null) {
@@ -26,12 +21,15 @@ const setCurrentPlayer = () => {
 const handleCellClick = (index: number) => {
   // Kontrollera om cellen redan är upptagen
   if (board.value[index] !== '') return;
+  console.log(`Ruta ${index + 1} klickad`);
+  console.log('')
 
+ // Växla spelare
+ currentPlayer.value = currentPlayer.value === 'X' ? 'O' : 'X';
   // Sätt spelarens symbol i cellen
   board.value[index] = currentPlayer.value;
+ 
 
-  // Växla spelare
-  currentPlayer.value = currentPlayer.value === 'X' ? 'O' : 'X';
 };
 
 
@@ -39,7 +37,7 @@ const handleCellClick = (index: number) => {
 </script>
 <template>
 
-    
+
  
 <div class="grid-container">
     <div 

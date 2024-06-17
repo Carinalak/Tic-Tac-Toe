@@ -9,8 +9,6 @@ import AddPlayer from "./components/AddPlayer.vue";
 <AddPlayer  />
 
 
-
-
   
 </template>
 <style scoped>
