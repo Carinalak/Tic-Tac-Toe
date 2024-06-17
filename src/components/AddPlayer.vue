@@ -40,7 +40,7 @@ onMounted(() => {
     }
 });
 
-const resetGame = () => {
+const resetPlayers = () => {
     localStorage.removeItem('playerX');
     localStorage.removeItem('playerO');
 
@@ -51,10 +51,23 @@ const resetGame = () => {
     currentPlayerIndex.value = null;
     gameStarted.value = false;
 };
+/*
+const resetGame = () => {
+    localStorage.removeItem('playerX');
+    localStorage.removeItem('playerO');
+
+    playerX.value = null;
+    playerO.value = null;
+    isPlayerX.value = true;
+    buttonText.value = 'Spara';
+    currentPlayerIndex.value = null;
+    gameStarted.value = false;
+};*/
 
 const startGame = () => {
     currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1;
     gameStarted.value = true;
+    
     console.log(`Spelet har startat. Spelare ${currentPlayerIndex.value === 0 ? 'X' : 'O'} börjar spela`);
 }
 
@@ -72,7 +85,7 @@ const startGame = () => {
     
     <div v-else>
         <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex" />
-        <button @click="resetGame">Återställ spel</button>
+        <button @click="resetPlayers">Logga in på nytt</button>
     </div>
 
 </template>

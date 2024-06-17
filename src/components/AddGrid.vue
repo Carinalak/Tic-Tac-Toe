@@ -8,8 +8,9 @@ const board = ref(Array(9).fill(''));
 
 //Slumpvis spelares symbol:
 const currentPlayer = ref('X');
-//const currentPlayer = ref<{ name: string, symbol: string } | null>(null);
-//const currentPlayer = ref<{ 'O' : 'X' } | null>();
+
+//const currentPlayer = ref<{ symbol: string } >();
+
 /*
 const setCurrentPlayer = () => {
     if (currentPlayerIndex.value !== null) {
@@ -31,7 +32,6 @@ const handleCellClick = (index: number) => {
  
 
 };
-
 
 
 </script>
