@@ -58,27 +58,27 @@ watch(gameDraw, (isDraw) => {
 </script>
 
 <template>
-  
+<section class="main-container"> 
  <div v-if="playerX && playerO">
     <p>Spelare X: {{ playerX.name }}, Poäng: {{ playerX.points }}</p>
     <p>Spelare O: {{ playerO.name }}, Poäng: {{ playerO.points }}</p>
-
-    <div v-if="winner && !gameDraw">
-      <h2>Grattis {{ winner }}, du vann!</h2>
-      <button @click="resetGame">Spela igen</button>
-    </div>
-
-    <div v-if="gameDraw">
+    <article class="winner-container-height">
+      <div class="winner-container" v-if="winner && !gameDraw">
+        <h2>Grattis {{ winner }}, du vann!</h2>
+        <button @click="resetGame">Spela igen</button>
+      </div>
+    </article>
+    <div class="main-container" v-if="gameDraw">
       <p>Oavgjort, börja om</p>
       <button @click="resetGame">Spela igen</button>
     </div>
-
   </div>
 
   <div>
-    <p v-if="!winner && !gameDraw">Det är {{ currentPlayerName }}s tur att spela.</p>
+    <p class="main-container" v-if="!winner && !gameDraw">Det är {{ currentPlayerName }}s tur att spela.</p>
     <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" @gameDraw="handleGameDraw" :gameOver="!!winner || gameDraw" />
   </div> 
+</section>
 
 </template>
 
@@ -88,5 +88,24 @@ watch(gameDraw, (isDraw) => {
 h2 {
   color: purple;
   font-weight: bold;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+}
+
+.winner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+}
+.winner-container-height {
+  height: 90px;
 }
 </style>

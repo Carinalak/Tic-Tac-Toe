@@ -56,26 +56,28 @@ const resetBoard = () => {
 </script>
 
 <template>
-  <div class="grid-container">
-    <div 
-      v-for="(cell, index) in board" 
-      :key="index" 
-      class="grid-cell" 
-      @click="handleCellClick(index)"
-    >
-      <span class="cell-content">{{ cell }}</span>
+  <section> 
+    <div class="grid-container">
+      <div 
+        v-for="(cell, index) in board" 
+        :key="index" 
+        class="grid-cell" 
+        @click="handleCellClick(index)"
+      >
+        <span class="cell-content">{{ cell }}</span>
+      </div>
     </div>
-  </div>
+  </section>   
 </template>
 
 <style scoped>
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
   width: 300px;
   margin-top: 10px;
   background-color: rgb(206, 171, 239);
+  border-radius: 5px;
 }
 
 .grid-cell {
@@ -86,6 +88,7 @@ const resetBoard = () => {
   height: 100px;
   font-size: 24px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .cell-content {

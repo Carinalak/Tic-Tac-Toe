@@ -58,19 +58,41 @@ const startGame = () => {
 
 <template>
     <div v-if="!gameStarted">
+
         <form @submit.prevent="handleSubmit">
-            <label>{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
-            <input type="text" v-model="playerText" />
-            <button type="submit"> {{ buttonText }}</button>
+            <label class="input-text">{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
+            <input type="text" placeholder="Namn" v-model="playerText" />
+            <button class="submit-btn" type="submit"> {{ buttonText }}</button>
         </form>
+
     </div>
 
-    <div v-else>
+    <div class="button-wrap" v-else>
         <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex" />
         <button @click="resetPlayers">Logga in på nytt</button>
     </div>
 </template>
 
 <style scoped>
+.submit-btn {
+    margin-left: 14px;
+}
+
+input:focus {
+    border: 1px solid rgb(228, 29, 181);
+}
+.input-text {
+    color: purple;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.button-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+}
 
 </style>
