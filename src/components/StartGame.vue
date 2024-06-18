@@ -38,6 +38,7 @@ const handleGameDraw = () => {
 
 const resetGame = () => {
   winner.value = null;
+  gameDraw.value = false;
   currentPlayerIndex.value = props.currentPlayerIndex;
 };
 
@@ -63,9 +64,13 @@ watch(gameDraw, (isDraw) => {
       <p>Grattis {{ winner }}, du vann!</p>
       <button @click="resetGame">Spela igen</button>
     </div>
+    <div v-if="gameDraw">
+      <p>Oavgjort, börja om</p>
+      <button @click="resetGame">Spela igen</button>
+    </div>
   </div>
   <div>
-    <p v-if="!winner">Det är {{ currentPlayerName }}s tur att spela.</p>
+    <p v-if="!winner && !gameDraw">Det är {{ currentPlayerName }}s tur att spela.</p>
     <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" @gameDraw="handleGameDraw" :gameOver="!!winner || gameDraw" />
   </div> 
 </template>
