@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import AddGrid from './AddGrid.vue';
 
 const props = defineProps<{
@@ -29,12 +29,16 @@ const handleGameWon = (symbol: string) => {
   }
 };
 
-
 const resetGame = () => {
   winner.value = null;
   currentPlayerIndex.value = props.currentPlayerIndex;
 };
 
+watch(winner, (newWinner) => {
+  if (newWinner) {
+    alert(`Grattis ${newWinner}, du vann!`);
+  }
+});
 
 
 </script>
