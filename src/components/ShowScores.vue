@@ -1,5 +1,3 @@
-
-
 <script setup lang="ts">
 
 
@@ -7,8 +5,6 @@ const props = defineProps<{
 playerX: { name: string, symbol: string, points: number } | null;
 playerO: { name: string, symbol: string, points: number } | null;
 }>();
-
-
 
 </script>
 <template>

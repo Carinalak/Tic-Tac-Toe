@@ -58,27 +58,31 @@ watch(gameDraw, (isDraw) => {
 </script>
 
 <template>
-<section class="main-container"> 
- <div v-if="playerX && playerO">
-    <p>Spelare X: {{ playerX.name }}, Poäng: {{ playerX.points }}</p>
-    <p>Spelare O: {{ playerO.name }}, Poäng: {{ playerO.points }}</p>
-    <article class="winner-container-height">
+  <section class="main-container"> 
+  <div v-if="playerX && playerO">
+      <p>Spelare X: {{ playerX.name }}, Poäng: {{ playerX.points }}</p>
+      <p>Spelare O: {{ playerO.name }}, Poäng: {{ playerO.points }}</p>
+      <article class="winner-container-height">
+        <div class="winner-container" v-if="winner && !gameDraw">
+          <h2>Grattis {{ winner }}, du vann!</h2>
+        </div>
+      </article>
+      <div class="main-container" v-if="gameDraw">
+        <p>Oavgjort, börja om</p>
+      </div>
+    </div>
+    <div>
+      <p class="main-container" v-if="!winner && !gameDraw">Det är {{ currentPlayerName }}s tur att spela.</p>
+      <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" @gameDraw="handleGameDraw" :gameOver="!!winner || gameDraw" />
       <div class="winner-container" v-if="winner && !gameDraw">
-        <h2>Grattis {{ winner }}, du vann!</h2>
+          <button @click="resetGame">Spela igen</button>
+      </div>
+      <div class="main-container" v-if="gameDraw">
         <button @click="resetGame">Spela igen</button>
       </div>
-    </article>
-    <div class="main-container" v-if="gameDraw">
-      <p>Oavgjort, börja om</p>
-      <button @click="resetGame">Spela igen</button>
-    </div>
-  </div>
-
-  <div>
-    <p class="main-container" v-if="!winner && !gameDraw">Det är {{ currentPlayerName }}s tur att spela.</p>
-    <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" @gameDraw="handleGameDraw" :gameOver="!!winner || gameDraw" />
-  </div> 
-</section>
+    
+    </div> 
+  </section>
 
 </template>
 
@@ -95,7 +99,8 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: aqua;
+    font-size: 2rem;
+    color: purple;
 }
 
 .winner-container {
@@ -103,9 +108,7 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: aqua;
+    
 }
-.winner-container-height {
-  height: 90px;
-}
+
 </style>

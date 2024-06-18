@@ -75,7 +75,6 @@ const resetBoard = () => {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 300px;
-  margin-top: 10px;
   background-color: rgb(206, 171, 239);
   border-radius: 5px;
 }
@@ -95,5 +94,10 @@ const resetBoard = () => {
   font-size: 5rem;
   color: purple;
 }
-
+.grid-wrap-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 </style>

@@ -6,6 +6,7 @@ main {
   border: 1px solid gold;
   min-width: 100vW;
   min-height: 100vh;
+  padding-bottom: 20px;
  
 }
 body {
@@ -14,12 +15,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 3.2rem;
   text-align: center;
 }
 
