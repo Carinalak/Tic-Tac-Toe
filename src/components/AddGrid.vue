@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch } from 'vue';
+import {ref, watch, defineEmits } from 'vue';
 import { Player } from './models/Player';
 
 const props = defineProps<{
@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 
 
-const emit = defineEmits(['playerSwitched', 'gameWon']);
+const emit = defineEmits(['playerSwitched', 'gameWon', 'gameDraw']);
 
 const board = ref(Array(9).fill(''));
 //const gameOver = ref(false);
@@ -19,22 +19,22 @@ const winningCombinations = [
   [0, 4, 8], [2, 4, 6]             // diagonals
 ];
 
-
 const handleCellClick = (index: number) => {
   if (board.value[index] !== '' || props.gameOver) return;
-  console.log(props.currentPlayerSymbol, "makes the move");
-  
 
   board.value[index] = props.currentPlayerSymbol;
 
   if (checkWinner(props.currentPlayerSymbol)) {
-    //gameOver.value = true;
     emit('gameWon', props.currentPlayerSymbol);
-    console.log(props.currentPlayerSymbol, "won, play again?");
-    
+  } else if (boardIsFull()) {
+    emit('gameDraw');
   } else {
     emit('playerSwitched');
   }
+};
+
+const boardIsFull = () => {
+  return board.value.every(cell => cell !== '');
 };
 
 const checkWinner = (symbol: string) => {
