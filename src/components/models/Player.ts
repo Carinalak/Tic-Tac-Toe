@@ -1,12 +1,7 @@
 export class Player {
-    name: string;
-    symbol: string;
-    score: number;
-  
-    constructor(name: string, symbol: string) {
-      this.name = name;
-      this.symbol = symbol;
-      this.score = 0;
-    }
-  }
-  
+  constructor(
+    public name: string,
+    public symbol: string,
+    public points: number = 0
+  ) {}
+};

@@ -3,8 +3,8 @@ import { ref, computed } from 'vue';
 import AddGrid from './AddGrid.vue';
 
 const props = defineProps<{
-  playerX: { name: string, symbol: string } | null;
-  playerO: { name: string, symbol: string } | null;
+  playerX: { name: string, symbol: string, points: number } | null;
+  playerO: { name: string, symbol: string, points: number } | null;
   currentPlayerIndex: number | null;
 }>();
 
@@ -20,6 +20,13 @@ const switchPlayer = () => {
 
 const handleGameWon = (symbol: string) => {
   winner.value = symbol === 'X' ? props.playerX?.name ?? null : props.playerO?.name ?? null;
+  if (symbol === 'X') {
+    props.playerX!.points += 1;
+    localStorage.setItem('playerX', JSON.stringify(props.playerX));
+  } else {
+    props.playerO!.points += 1;
+    localStorage.setItem('playerO', JSON.stringify(props.playerO)); 
+  }
 };
 
 
@@ -28,20 +35,23 @@ const resetGame = () => {
   currentPlayerIndex.value = props.currentPlayerIndex;
 };
 
+
+
 </script>
 
 <template>
  <div v-if="playerX && playerO">
-    <p>Spelare X: {{ playerX.name }}, Spelare O: {{ playerO.name }}</p>
+    <p>Spelare X: {{ playerX.name }}, Poäng: {{ playerX.points }}</p>
+    <p>Spelare O: {{ playerO.name }}, Poäng: {{ playerO.points }}</p>
     <div v-if="winner">
       <p>Grattis {{ winner }}, du vann!</p>
       <button @click="resetGame">Spela igen</button>
     </div>
-    </div>
-    <div>
-      <p v-if="!winner">Det är {{ currentPlayerName }}s tur att spela.</p>
-      <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" :gameOver="!!winner" />
-    </div> 
+  </div>
+  <div>
+    <p v-if="!winner">Det är {{ currentPlayerName }}s tur att spela.</p>
+    <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" :gameOver="!!winner" />
+  </div> 
 </template>
 
 

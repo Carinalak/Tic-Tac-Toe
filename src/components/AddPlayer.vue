@@ -13,14 +13,14 @@ const gameStarted = ref(false);
 
 const handleSubmit = () => {
     if (isPlayerX.value) {
-        playerX.value = new Player(playerText.value, 'X');
+        playerX.value = new Player(playerText.value, 'X', 0);
         localStorage.setItem('playerX', JSON.stringify(playerX.value));
         console.log(`Spelare X sparad: ${playerX.value.name}`);
         playerText.value = "";
         buttonText.value = "Börja spela";
         isPlayerX.value = false;
     } else {
-        playerO.value = new Player(playerText.value, 'O');
+        playerO.value = new Player(playerText.value, 'O', 0);
         localStorage.setItem('playerO', JSON.stringify(playerO.value));
         console.log(`Spelare O sparad: ${playerO.value.name}`);
         playerText.value = "";
