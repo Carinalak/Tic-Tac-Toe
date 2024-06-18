@@ -33,16 +33,18 @@ const resetGame = () => {
 <template>
  <div v-if="playerX && playerO">
     <p>Spelare X: {{ playerX.name }}, Spelare O: {{ playerO.name }}</p>
-  </div>
-  <div v-if="winner">
+    <div v-if="winner">
       <p>Grattis {{ winner }}, du vann!</p>
       <button @click="resetGame">Spela igen</button>
     </div>
-  <div v-else>
-    <p>Det är {{ currentPlayerName }}s tur att spela.</p>
-    <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" :gameOver="!!winner" />
-  </div>
+    </div>
+    <div>
+      <p v-if="!winner">Det är {{ currentPlayerName }}s tur att spela.</p>
+      <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" :gameOver="!!winner" />
+    </div> 
 </template>
+
+
 
 <style scoped>
 
