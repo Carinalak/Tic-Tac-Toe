@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch, defineEmits } from 'vue';
+import {ref, watch } from 'vue';
 import { Player } from './models/Player';
 
 const props = defineProps<{
@@ -63,7 +63,7 @@ const resetBoard = () => {
       class="grid-cell" 
       @click="handleCellClick(index)"
     >
-      {{ cell }}
+      <span class="cell-content">{{ cell }}</span>
     </div>
   </div>
 </template>
@@ -75,15 +75,22 @@ const resetBoard = () => {
   gap: 5px;
   width: 300px;
   margin-top: 10px;
+  background-color: rgb(206, 171, 239);
 }
 
 .grid-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #000;
+  border: 1px solid purple;;
   height: 100px;
   font-size: 24px;
   cursor: pointer;
 }
+
+.cell-content {
+  font-size: 5rem;
+  color: purple;
+}
+
 </style>

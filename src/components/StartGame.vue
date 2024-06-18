@@ -20,6 +20,9 @@ const emit = defineEmits(['playerSwitched', 'gameWon', 'gameDraw']);
 const switchPlayer = () => {
   currentPlayerIndex.value = currentPlayerIndex.value === 0 ? 1 : 0;
 };
+const handleGameDraw = () => {
+  gameDraw.value = true;
+};
 
 const handleGameWon = (symbol: string) => {
   winner.value = symbol === 'X' ? props.playerX?.name ?? null : props.playerO?.name ?? null;
@@ -32,9 +35,8 @@ const handleGameWon = (symbol: string) => {
   }
 };
 
-const handleGameDraw = () => {
-  gameDraw.value = true;
-};
+
+
 
 const resetGame = () => {
   winner.value = null;
@@ -44,7 +46,6 @@ const resetGame = () => {
 
 watch(winner, (newWinner) => {
   if (newWinner) {
-    alert(`Grattis ${newWinner}, du vann!`);
   }
 });
 
@@ -57,26 +58,35 @@ watch(gameDraw, (isDraw) => {
 </script>
 
 <template>
+  
  <div v-if="playerX && playerO">
     <p>Spelare X: {{ playerX.name }}, Poäng: {{ playerX.points }}</p>
     <p>Spelare O: {{ playerO.name }}, Poäng: {{ playerO.points }}</p>
+
     <div v-if="winner && !gameDraw">
-      <p>Grattis {{ winner }}, du vann!</p>
+      <h2>Grattis {{ winner }}, du vann!</h2>
       <button @click="resetGame">Spela igen</button>
     </div>
+
     <div v-if="gameDraw">
       <p>Oavgjort, börja om</p>
       <button @click="resetGame">Spela igen</button>
     </div>
+
   </div>
+
   <div>
     <p v-if="!winner && !gameDraw">Det är {{ currentPlayerName }}s tur att spela.</p>
     <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" @gameDraw="handleGameDraw" :gameOver="!!winner || gameDraw" />
   </div> 
+
 </template>
 
 
 
 <style scoped>
-
+h2 {
+  color: purple;
+  font-weight: bold;
+}
 </style>

@@ -2,12 +2,27 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
- 
-
-
- 
 }
+
+
+button {
+  background-color: purple;
+  color: white;
+  height: 35px;
+  width: 200px;
+  border-radius: 6px;
+  border-style: none;
+  margin-top: 5px;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+button:hover {
+  background-color: rgb(155, 69, 155);
+}
+button:active {
+  background-color: rgb(228, 29, 181);
+}
+
 
 a {
   font-weight: 500;
