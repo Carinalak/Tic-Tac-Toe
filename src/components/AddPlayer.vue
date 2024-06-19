@@ -68,8 +68,7 @@ const startGame = () => {
     </div>
 
     <div class="button-wrap" v-else>
-        <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex" />
-        <button @click="resetPlayers">Logga in på nytt</button>
+        <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex"  @resetPlayers="resetPlayers"/>
     </div>
 </template>
 
@@ -92,7 +91,6 @@ input:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: aqua;
 }
 
 </style>

@@ -6,10 +6,8 @@ import AddPlayer from "./components/AddPlayer.vue";
 </script>
 <template>
 <h1> Tic Tac Toe</h1>
-<main>
-    <AddPlayer  />
-</main>
 
+    <AddPlayer  />
   
 </template>
 <style scoped>

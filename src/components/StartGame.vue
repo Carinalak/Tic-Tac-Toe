@@ -14,7 +14,7 @@ const currentPlayerName = computed(() => currentPlayerSymbol.value === 'X' ? pro
 const winner = ref<string | null>(null);
 const gameDraw = ref(false);
 
-const emit = defineEmits(['playerSwitched', 'gameWon', 'gameDraw']);
+const emit = defineEmits(['playerSwitched', 'gameWon', 'gameDraw', 'resetPlayers']);
 
 
 const switchPlayer = () => {
@@ -58,45 +58,51 @@ watch(gameDraw, (isDraw) => {
 </script>
 
 <template>
+  <div class="all-container">
   <section class="main-container"> 
-  <div v-if="playerX && playerO">
-      <p>Spelare X: {{ playerX.name }}, Poäng: {{ playerX.points }}</p>
-      <p>Spelare O: {{ playerO.name }}, Poäng: {{ playerO.points }}</p>
-      <article class="winner-container-height">
-        <div class="winner-container" v-if="winner && !gameDraw">
-          <h2>Grattis {{ winner }}, du vann!</h2>
+    <div class="game-container">
+      <article class="winner-container-height" v-if="winner && !gameDraw">
+        <div class="winner-container">
+          <h3>Grattis <span class="name-color">{{ winner }}</span>, du vann!</h3>
         </div>
+        
       </article>
-      <div class="main-container" v-if="gameDraw">
-        <p>Oavgjort, börja om</p>
-      </div>
-    </div>
-    <div>
-      <p class="main-container" v-if="!winner && !gameDraw">Det är {{ currentPlayerName }}s tur att spela.</p>
-      <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" @gameDraw="handleGameDraw" :gameOver="!!winner || gameDraw" />
-      <div class="winner-container" v-if="winner && !gameDraw">
+      <div>
+        <div v-if="gameDraw"><p>Oavgjort, börja om</p></div>
+        <p v-if="!winner && !gameDraw">Det är <span class="name-color">{{ currentPlayerName }}s </span>tur att spela</p>
+        
+        <AddGrid :currentPlayerSymbol="currentPlayerSymbol" @playerSwitched="switchPlayer" @gameWon="handleGameWon" @gameDraw="handleGameDraw" :gameOver="!!winner || gameDraw" />
+        
+        
+        <div class="winner-container" v-if="winner && !gameDraw">
           <button @click="resetGame">Spela igen</button>
+        </div>
+        <div v-if="gameDraw">
+          
+          <button @click="resetGame">Spela igen</button>
+        </div>
       </div>
-      <div class="main-container" v-if="gameDraw">
-        <button @click="resetGame">Spela igen</button>
+      <div class="button-wrap">
+        <button @click="$emit('resetPlayers')" class="reset-button">Logga in på nytt</button>
       </div>
-    
-    </div> 
+      
+    </div>
   </section>
-
+  <div class="score-container" v-if="playerX && playerO">
+        <p>{{ playerX.name }}: {{ playerX.points }} poäng<br>
+        {{ playerO.name }}: {{ playerO.points }} poäng</p>
+    </div>
+  </div>
 </template>
-
-
-
 <style scoped>
-h2 {
+h3 {
   color: purple;
   font-weight: bold;
 }
 
 .main-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
@@ -111,4 +117,30 @@ h2 {
     
 }
 
+.score-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.all-container {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.name-color {
+  color: rgb(228, 29, 181);
+}
 </style>
