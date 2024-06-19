@@ -37,6 +37,7 @@ button {
   font-weight: 700;
   font-family: "Economica", sans-serif;
   text-transform: uppercase;
+  cursor: pointer;
   
 }
 button:hover {
