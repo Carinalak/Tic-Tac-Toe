@@ -86,13 +86,16 @@ watch(gameDraw, (isDraw) => {
         <button @click="$emit('resetPlayers')" class="reset-button">Logga in på nytt</button>
       </div>
       
-    </div>
-  </section>
   <div class="score-container" v-if="playerX && playerO">
         <p><span class="name-color">{{ playerX.name }}</span>: {{ playerX.points }} poäng<br>
-          <span class="name-color">{{ playerO.name }}</span> {{ playerO.points }} poäng</p>
-    </div>
+        <span class="name-color">{{ playerO.name }}</span>: {{ playerO.points }} poäng</p>
   </div>
+    </div>
+  </section>
+
+
+  </div>
+
 </template>
 <style scoped>
 h3 {
@@ -114,16 +117,22 @@ h3 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
 }
 
 .score-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 20px;
+    align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
+    height: 50px;
+    width: 300px;
+    border: 1px solid purple;
+    background-color: rgb(206, 171, 239);
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
 .game-container {
@@ -135,9 +144,9 @@ h3 {
 }
 .all-container {
   display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .name-color {
