@@ -58,7 +58,6 @@ const startGame = () => {
 
 <template>
     <div v-if="!gameStarted">
-
         <form class="input-form " @submit.prevent="handleSubmit">
             <label class="input-text">{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
             <input type="text" placeholder="Namn" v-model="playerText" />
@@ -75,7 +74,6 @@ const startGame = () => {
 .submit-btn {
     margin-left: 14px;
 }
-
 input:focus {
     border: 1px solid rgb(228, 29, 181);
 }
@@ -90,10 +88,24 @@ input:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 .input-form {
     margin-top: 150px;
 }
 
+@media (max-width: 600px) {
+    .input-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+    .submit-btn {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    input {
+        margin-top: 15px;
+    }
+} 
 </style>
