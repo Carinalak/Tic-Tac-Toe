@@ -7,11 +7,9 @@ const props = defineProps<{
   gameOver: boolean;
 }>();
 
-
 const emit = defineEmits(['playerSwitched', 'gameWon', 'gameDraw']);
 
 const board = ref(Array(9).fill(''));
-//const gameOver = ref(false);
 
 const winningCombinations = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -78,7 +76,6 @@ const resetBoard = () => {
   background-color: rgb(206, 171, 239);
   border-radius: 5px;
 }
-
 .grid-cell {
   display: flex;
   align-items: center;
@@ -88,8 +85,9 @@ const resetBoard = () => {
   font-size: 24px;
   cursor: pointer;
   border-radius: 5px;
+  font-family: sans-serif;
+  font-weight: bold;
 }
-
 .cell-content {
   font-size: 5rem;
   color: purple;

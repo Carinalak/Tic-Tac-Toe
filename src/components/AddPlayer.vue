@@ -64,11 +64,10 @@ const startGame = () => {
             <input type="text" placeholder="Namn" v-model="playerText" />
             <button class="submit-btn" type="submit"> {{ buttonText }}</button>
         </form>
-
     </div>
 
     <div class="button-wrap" v-else>
-        <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex"  @resetPlayers="resetPlayers"/>
+        <StartGame :playerX="playerX" :playerO="playerO" :currentPlayerIndex="currentPlayerIndex" @resetPlayers="resetPlayers"/>
     </div>
 </template>
 
@@ -82,7 +81,7 @@ input:focus {
 }
 .input-text {
     color: purple;
-    font-size: 1.3rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-right: 10px;
 }
@@ -91,8 +90,10 @@ input:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 }
 .input-form {
     margin-top: 150px;
 }
+
 </style>
