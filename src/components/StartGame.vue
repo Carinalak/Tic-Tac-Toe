@@ -38,17 +38,23 @@ const handleGameWon = (symbol: string) => {
 const resetGame = () => {
   winner.value = null;
   gameDraw.value = false;
-  currentPlayerIndex.value = props.currentPlayerIndex;
+  currentPlayerIndex.value = Math.random() < 0.5 ? 0 : 1; 
+  emit('playerSwitched');
+  //currentPlayerIndex.value = props.currentPlayerIndex;
 };
 
 watch(winner, (newWinner) => {
   if (newWinner) {
+    console.log(newWinner, "vann! Spela igen?");
+    
   }
 });
 
 watch(gameDraw, (isDraw) => {
   if (isDraw) {
     alert("Oavgjort, börja om");
+    console.log("oavgjort, börja om");
+    
   }
 });
 </script>
