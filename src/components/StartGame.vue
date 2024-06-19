@@ -89,8 +89,8 @@ watch(gameDraw, (isDraw) => {
     </div>
   </section>
   <div class="score-container" v-if="playerX && playerO">
-        <p>{{ playerX.name }}: {{ playerX.points }} poäng<br>
-        {{ playerO.name }}: {{ playerO.points }} poäng</p>
+        <p><span class="name-color">{{ playerX.name }}</span>: {{ playerX.points }} poäng<br>
+          <span class="name-color">{{ playerO.name }}</span> {{ playerO.points }} poäng</p>
     </div>
   </div>
 </template>

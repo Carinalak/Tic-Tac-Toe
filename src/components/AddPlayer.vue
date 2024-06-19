@@ -59,7 +59,7 @@ const startGame = () => {
 <template>
     <div v-if="!gameStarted">
 
-        <form @submit.prevent="handleSubmit">
+        <form class="input-form " @submit.prevent="handleSubmit">
             <label class="input-text">{{ isPlayerX ? 'Spelare X' : 'Spelare O' }}: </label>
             <input type="text" placeholder="Namn" v-model="playerText" />
             <button class="submit-btn" type="submit"> {{ buttonText }}</button>
@@ -92,5 +92,7 @@ input:focus {
     align-items: center;
     justify-content: center;
 }
-
+.input-form {
+    margin-top: 150px;
+}
 </style>

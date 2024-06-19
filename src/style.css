@@ -14,11 +14,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "Economica", sans-serif;
+
 }
 
 h1 {
   font-size: 3.2rem;
   text-align: center;
+  font-family: "Titan One", sans-serif;
 }
 
 button {
